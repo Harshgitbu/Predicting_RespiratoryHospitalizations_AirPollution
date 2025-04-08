@@ -1,0 +1,106 @@
+{
+	"name": "RawData",
+	"properties": {
+		"description": "Raw Respiratory data",
+		"linkedServiceName": {
+			"referenceName": "RawData",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "RawRespiratoryData.csv",
+				"folderPath": "Bronze",
+				"container": "team4container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "week_end",
+				"type": "String"
+			},
+			{
+				"name": "geography",
+				"type": "String"
+			},
+			{
+				"name": "county",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_combined",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_covid",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_influenza",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_rsv",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_smoothed_combined",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_smoothed_covid",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_smoothed_influenza",
+				"type": "String"
+			},
+			{
+				"name": "percent_visits_smoothed_rsv",
+				"type": "String"
+			},
+			{
+				"name": "ed_trends_covid",
+				"type": "String"
+			},
+			{
+				"name": "ed_trends_influenza",
+				"type": "String"
+			},
+			{
+				"name": "ed_trends_rsv",
+				"type": "String"
+			},
+			{
+				"name": "hsa",
+				"type": "String"
+			},
+			{
+				"name": "hsa_counties",
+				"type": "String"
+			},
+			{
+				"name": "hsa_nci_id",
+				"type": "String"
+			},
+			{
+				"name": "fips",
+				"type": "String"
+			},
+			{
+				"name": "trend_source",
+				"type": "String"
+			},
+			{
+				"name": "BuildNumber",
+				"type": "String"
+			}
+		]
+	}
+}

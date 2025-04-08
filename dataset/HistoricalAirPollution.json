@@ -1,0 +1,44 @@
+{
+	"name": "HistoricalAirPollution",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HistoricalAirPollution",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"lat": {
+				"type": "string",
+				"defaultValue": "42.3601"
+			},
+			"lon": {
+				"type": "string",
+				"defaultValue": "-71.0589"
+			},
+			"appid": {
+				"type": "string",
+				"defaultValue": "ce5de9911b73fac401ffac9abdc027cb"
+			},
+			"start": {
+				"type": "string",
+				"defaultValue": "1712616832"
+			},
+			"end": {
+				"type": "string",
+				"defaultValue": "1744152832"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "data/2.5/air_pollution/history?lat=@{dataset().lat}&lon=@{dataset().lon}&start=@{dataset().start}&end=@{dataset().end}&appid=@{dataset().appid}",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
