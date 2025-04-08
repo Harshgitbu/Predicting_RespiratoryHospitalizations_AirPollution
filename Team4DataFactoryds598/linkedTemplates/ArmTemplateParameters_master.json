@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Team4DataFactoryds598"
+		},
+		"AirPollution_RespiratoryHospitalizations_credential": {
+			"value": ""
+		},
+		"HistoricalAirPollutionDatasink_connectionString": {
+			"value": ""
+		},
+		"RawData_connectionString": {
+			"value": ""
+		},
+		"respiratorebronze_connectionString": {
+			"value": ""
+		},
+		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
+			"value": "Harshgitbu"
+		},
+		"HistoricalAirPollution_properties_typeProperties_url": {
+			"value": "https://api.openweathermap.org/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
