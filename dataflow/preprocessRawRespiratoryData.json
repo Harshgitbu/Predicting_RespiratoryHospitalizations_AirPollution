@@ -1,0 +1,67 @@
+{
+	"name": "preprocessRawRespiratoryData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "RawData",
+						"type": "DatasetReference"
+					},
+					"name": "RespiratoryHospitalizations"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "respiratoryhospitalization",
+						"type": "DatasetReference"
+					},
+					"name": "RespiratoryHospitalization1year"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Datafor1year"
+				},
+				{
+					"name": "FilterDataFor1year"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          week_end as string,",
+				"          geography as string,",
+				"          county as string,",
+				"          percent_visits_combined as string,",
+				"          percent_visits_covid as string,",
+				"          percent_visits_influenza as string,",
+				"          percent_visits_rsv as string,",
+				"          percent_visits_smoothed_combined as string,",
+				"          percent_visits_smoothed_covid as string,",
+				"          percent_visits_smoothed_influenza as string,",
+				"          percent_visits_smoothed_rsv as string,",
+				"          ed_trends_covid as string,",
+				"          ed_trends_influenza as string,",
+				"          ed_trends_rsv as string,",
+				"          hsa as string,",
+				"          hsa_counties as string,",
+				"          hsa_nci_id as string,",
+				"          fips as string,",
+				"          trend_source as string,",
+				"          BuildNumber as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> RespiratoryHospitalizations",
+				"RespiratoryHospitalizations derive(week_end = toDate(week_end, 'yyyy-MM-dd')) ~> Datafor1year",
+				"Datafor1year filter(week_end >= toDate('2024-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor1year",
+				"FilterDataFor1year sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> RespiratoryHospitalization1year"
+			]
+		}
+	}
+}

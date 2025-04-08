@@ -1,0 +1,19 @@
+{
+	"name": "respiratoryhospitalization",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "respiratorebronze",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "Bronze/RespiratoryHospitalizations",
+				"container": "team4container"
+			}
+		},
+		"schema": {}
+	}
+}
