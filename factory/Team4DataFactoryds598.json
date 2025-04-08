@@ -1,0 +1,9 @@
+{
+	"name": "Team4DataFactoryds598",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c2b22b2e-e281-4d07-bfc7-b0a3e800ea29",
+		"tenantId": "d57d32cc-c121-488f-b07b-dfe705680c71"
+	}
+}
