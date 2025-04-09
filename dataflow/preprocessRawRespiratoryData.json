@@ -27,6 +27,9 @@
 				},
 				{
 					"name": "FilterDataFor1year"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -56,9 +59,24 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     partitionBy('hash', 1)) ~> RespiratoryHospitalizations",
-				"RespiratoryHospitalizations derive(week_end = toDate(week_end, 'yyyy-MM-dd')) ~> Datafor1year",
+				"RespiratoryHospitalizations derive(week_end = toDate(week_end, 'yyyy-MM-dd'),",
+				"          total_visits_combined = toDouble(percent_visits_combined) * 768425,",
+				"          total_visits_covid = toDouble(percent_visits_covid) * 768425,",
+				"          total_visits_influenza = toDouble(percent_visits_influenza) * 768425,",
+				"          total_visits_rsv = toDouble(percent_visits_rsv) * 768425) ~> Datafor1year",
 				"Datafor1year filter(week_end >= toDate('2024-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor1year",
-				"FilterDataFor1year sink(allowSchemaDrift: true,",
+				"FilterDataFor1year select(mapColumn(",
+				"          week_end,",
+				"          geography,",
+				"          county,",
+				"          total_visits_combined,",
+				"          total_visits_covid,",
+				"          total_visits_influenza,",
+				"          total_visits_rsv",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['Respiratory_Hospitalizations_1year'],",
 				"     skipDuplicateMapInputs: true,",
