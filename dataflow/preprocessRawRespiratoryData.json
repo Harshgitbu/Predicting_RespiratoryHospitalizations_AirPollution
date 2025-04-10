@@ -64,7 +64,7 @@
 				"          total_visits_covid = toDouble(percent_visits_covid) * 768425,",
 				"          total_visits_influenza = toDouble(percent_visits_influenza) * 768425,",
 				"          total_visits_rsv = toDouble(percent_visits_rsv) * 768425) ~> Datafor1year",
-				"Datafor1year filter(week_end >= toDate('2024-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor1year",
+				"Datafor1year filter(week_end >= toDate('2023-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor1year",
 				"FilterDataFor1year select(mapColumn(",
 				"          week_end,",
 				"          geography,",
