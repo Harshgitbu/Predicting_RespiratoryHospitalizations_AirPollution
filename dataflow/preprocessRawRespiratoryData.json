@@ -79,7 +79,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"FilterDataFor1year filter(geography == \"Boston\" && county == \"Suffolk\") ~> filter1",
+				"FilterDataFor1year filter(geography == \"Massachusetts\" && county == \"Suffolk\") ~> filter1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['Respiratory_Hospitalizations_1year'],",
