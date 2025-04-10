@@ -30,6 +30,9 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -65,10 +68,10 @@
 				"          total_visits_influenza = toDouble(percent_visits_influenza) * 768425,",
 				"          total_visits_rsv = toDouble(percent_visits_rsv) * 768425) ~> Datafor1year",
 				"Datafor1year filter(week_end >= toDate('2023-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor1year",
-				"FilterDataFor1year select(mapColumn(",
+				"filter1 select(mapColumn(",
 				"          week_end,",
-				"          geography,",
-				"          county,",
+				"          {\"Boston\"} = geography,",
+				"          {\"Suffolk\"} = county,",
 				"          total_visits_combined,",
 				"          total_visits_covid,",
 				"          total_visits_influenza,",
@@ -76,6 +79,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
+				"FilterDataFor1year filter(geography == \"Boston\" && county == \"Suffolk\") ~> filter1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['Respiratory_Hospitalizations_1year'],",
