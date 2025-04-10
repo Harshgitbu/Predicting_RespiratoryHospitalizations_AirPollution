@@ -18,7 +18,7 @@
 						"referenceName": "respiratoryhospitalization",
 						"type": "DatasetReference"
 					},
-					"name": "RespiratoryHospitalization1year"
+					"name": "RespiratoryHospitalization2years"
 				}
 			],
 			"transformations": [
@@ -85,7 +85,7 @@
 				"     partitionFileNames:['Respiratory_Hospitalizations_1year'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> RespiratoryHospitalization1year"
+				"     partitionBy('hash', 1)) ~> RespiratoryHospitalization2years"
 			]
 		}
 	}
