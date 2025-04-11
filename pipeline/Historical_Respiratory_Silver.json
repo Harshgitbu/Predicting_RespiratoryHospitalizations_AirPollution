@@ -1,9 +1,9 @@
 {
-	"name": "Historical_RespiratoryHospitalization_Bronze",
+	"name": "Historical_Respiratory_Silver",
 	"properties": {
 		"activities": [
 			{
-				"name": "RespiratoryHospitalization",
+				"name": "Historical_Respiratory_Silver",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "preprocessRawRespiratoryDataBronze",
+						"referenceName": "PreProcessRespiratorySilver",
 						"type": "DataFlowReference"
 					},
 					"compute": {

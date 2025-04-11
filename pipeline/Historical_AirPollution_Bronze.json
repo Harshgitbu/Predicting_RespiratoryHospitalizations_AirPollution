@@ -40,7 +40,14 @@
 				"inputs": [
 					{
 						"referenceName": "HistoricalAirPollution",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"lat": "42.3601",
+							"lon": "-71.0589",
+							"appid": "ce5de9911b73fac401ffac9abdc027cb",
+							"start": "1675232175",
+							"end": "1744152832"
+						}
 					}
 				],
 				"outputs": [
