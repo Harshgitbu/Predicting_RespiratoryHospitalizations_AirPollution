@@ -13,19 +13,21 @@
 					"name": "RespiratoryHospitalizationSilver"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "RespiratorySinkSilver",
+						"type": "DatasetReference"
+					},
+					"name": "RespiratorySink"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn"
 				},
 				{
 					"name": "filter"
-				},
-				{
-					"name": "derivedColumn1"
-				},
-				{
-					"name": "split1"
 				}
 			],
 			"scriptLines": [
@@ -61,11 +63,12 @@
 				"          total_visits_covid = toInteger(round(toDouble(percent_visits_covid) * 775000)),",
 				"          total_visits_influenza = toInteger(round(toDouble(percent_visits_influenza) * 775000)),",
 				"          total_visits_rsv = toInteger(round(toDouble(percent_visits_rsv) * 775000))) ~> derivedColumn",
-				"split1@MASuffolk filter(geography == \"Massachusetts\") ~> filter",
-				"RespiratoryHospitalizationSilver derive(county_clean = lower(trim(byName('county'))),",
-				"          geography_clean = lower(trim(byName('geography')))) ~> derivedColumn1",
-				"derivedColumn1 split(county_clean == 'suffolk' && geography_clean == 'massachusetts',",
-				"     disjoint: true) ~> split1@(MASuffolk, else)"
+				"RespiratoryHospitalizationSilver filter(geography == \"Massachusetts\") ~> filter",
+				"derivedColumn sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> RespiratorySink"
 			]
 		}
 	}
