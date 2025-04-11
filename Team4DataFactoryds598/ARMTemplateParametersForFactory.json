@@ -20,6 +20,9 @@
 		"AirpollutionSilver_connectionString": {
 			"value": ""
 		},
+		"RespiratorySilver_connectionString": {
+			"value": ""
+		},
 		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 			"value": "Harshgitbu"
 		},
