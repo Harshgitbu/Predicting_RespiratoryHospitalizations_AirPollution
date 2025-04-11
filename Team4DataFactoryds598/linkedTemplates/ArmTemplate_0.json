@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'AirPollution_RespiratoryHospitalizations'"
 		},
+		"AirpollutionSilver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AirpollutionSilver'"
+		},
 		"HistoricalAirPollutionDatasink_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'HistoricalAirPollutionDatasink'"
@@ -19,17 +23,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'RawData'"
 		},
-		"respiratorebronze_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'respiratorebronze'"
-		},
-		"AirpollutionSilver_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AirpollutionSilver'"
-		},
 		"RespiratorySilver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'RespiratorySilver'"
+		},
+		"respiratorebronze_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'respiratorebronze'"
 		},
 		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 			"type": "string",
@@ -58,6 +58,19 @@
 						"value": "[parameters('AirPollution_RespiratoryHospitalizations_credential')]"
 					},
 					"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEMyRkRBOTA4LUVCNEEtNEFGRS1COUY1LTg1MzlDMUU0MTEyN181MGU4MGJiMS01MzMxLTRlNzEtOTg3Yi1hMTA5MWMyOTkxMWIiDQp9"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AirpollutionSilver')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AirpollutionSilver_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -104,6 +117,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/RespiratorySilver')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('RespiratorySilver_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/respiratorebronze')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -117,30 +143,29 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AirpollutionSilver')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/AirPollutionSilverstorage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AirpollutionSilver",
+					"type": "LinkedServiceReference"
+				},
 				"annotations": [],
-				"type": "AzureBlobStorage",
+				"type": "Parquet",
 				"typeProperties": {
-					"connectionString": "[parameters('AirpollutionSilver_connectionString')]"
-				}
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "Silver/HistoricalAirPollution",
+						"container": "team4container"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RespiratorySilver')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('RespiratorySilver_connectionString')]"
-				}
-			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AirpollutionSilver')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/HistoricalAirPollution')]",
@@ -326,55 +351,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/respiratoryhospitalization')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "respiratorebronze",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"folderPath": "Bronze/RespiratoryHospitalizations",
-						"container": "team4container"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/respiratorebronze')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AirPollutionSilverstorage')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AirpollutionSilver",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"folderPath": "Silver/HistoricalAirPollution",
-						"container": "team4container"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AirpollutionSilver')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/RespiratorySinkSilver')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -397,6 +373,30 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/RespiratorySilver')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/respiratoryhospitalization')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "respiratorebronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "Bronze/RespiratoryHospitalizations",
+						"container": "team4container"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/respiratorebronze')]"
 			]
 		},
 		{
@@ -471,82 +471,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/HistoricalAirPollution')]",
 				"[concat(variables('factoryId'), '/datasets/HistoricalAirPollutionDataSink')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/preprocessRawRespiratoryDataBronze')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "RawData",
-								"type": "DatasetReference"
-							},
-							"name": "RespiratoryHospitalizations"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "respiratoryhospitalization",
-								"type": "DatasetReference"
-							},
-							"name": "RespiratoryHospitalization2years"
-						}
-					],
-					"transformations": [
-						{
-							"name": "Datafor2years"
-						},
-						{
-							"name": "FilterDataFor2years"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          week_end as string,",
-						"          geography as string,",
-						"          county as string,",
-						"          percent_visits_combined as string,",
-						"          percent_visits_covid as string,",
-						"          percent_visits_influenza as string,",
-						"          percent_visits_rsv as string,",
-						"          percent_visits_smoothed_combined as string,",
-						"          percent_visits_smoothed_covid as string,",
-						"          percent_visits_smoothed_influenza as string,",
-						"          percent_visits_smoothed_rsv as string,",
-						"          ed_trends_covid as string,",
-						"          ed_trends_influenza as string,",
-						"          ed_trends_rsv as string,",
-						"          hsa as string,",
-						"          hsa_counties as string,",
-						"          hsa_nci_id as string,",
-						"          fips as string,",
-						"          trend_source as string,",
-						"          BuildNumber as string",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     partitionBy('hash', 1)) ~> RespiratoryHospitalizations",
-						"RespiratoryHospitalizations derive(week_end = toDate(week_end, 'yyyy-MM-dd')) ~> Datafor2years",
-						"Datafor2years filter(week_end >= toDate('2023-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor2years",
-						"FilterDataFor2years sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['Respiratory_Hospitalizations_2years'],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> RespiratoryHospitalization2years"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/RawData')]",
-				"[concat(variables('factoryId'), '/datasets/respiratoryhospitalization')]"
 			]
 		},
 		{
@@ -688,6 +612,9 @@
 						},
 						{
 							"name": "filter"
+						},
+						{
+							"name": "drop"
 						}
 					],
 					"scriptLines": [
@@ -722,13 +649,38 @@
 						"filter derive(total_visits_combined = toInteger(round(toDouble(percent_visits_combined) * 775000)),",
 						"          total_visits_covid = toInteger(round(toDouble(percent_visits_covid) * 775000)),",
 						"          total_visits_influenza = toInteger(round(toDouble(percent_visits_influenza) * 775000)),",
-						"          total_visits_rsv = toInteger(round(toDouble(percent_visits_rsv) * 775000))) ~> derivedColumn",
-						"RespiratoryHospitalizationSilver filter(geography == \"Massachusetts\") ~> filter",
-						"derivedColumn sink(allowSchemaDrift: true,",
+						"          total_visits_rsv = toInteger(round(toDouble(percent_visits_rsv) * 775000)),",
+						"          Location = 'Boston') ~> derivedColumn",
+						"RespiratoryHospitalizationSilver filter(geography == \"Massachusetts\" && county == \"Suffolk\") ~> filter",
+						"derivedColumn select(mapColumn(",
+						"          ed_trends_covid,",
+						"          ed_trends_influenza,",
+						"          ed_trends_rsv,",
+						"          fips,",
+						"          hsa,",
+						"          hsa_counties,",
+						"          hsa_nci_id,",
+						"          percent_visits_smoothed_combined,",
+						"          percent_visits_smoothed_covid,",
+						"          percent_visits_smoothed_influenza,",
+						"          percent_visits_smoothed_rsv,",
+						"          trend_source,",
+						"          week_end,",
+						"          total_visits_combined,",
+						"          total_visits_covid,",
+						"          total_visits_influenza,",
+						"          total_visits_rsv,",
+						"          Location",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> drop",
+						"drop sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
+						"     partitionFileNames:['RespiratoryHospitalizationsFiltered'],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> RespiratorySink"
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> RespiratorySink"
 					]
 				}
 			},
@@ -738,49 +690,79 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Historical_RespiratoryHospitalization_Bronze')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/preprocessRawRespiratoryDataBronze')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "RespiratoryHospitalization",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "preprocessRawRespiratoryDataBronze",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"RespiratoryHospitalizations": {},
-									"RespiratoryHospitalization2years": {}
-								}
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "RawData",
+								"type": "DatasetReference"
 							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
+							"name": "RespiratoryHospitalizations"
 						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "respiratoryhospitalization",
+								"type": "DatasetReference"
+							},
+							"name": "RespiratoryHospitalization2years"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Datafor2years"
+						},
+						{
+							"name": "FilterDataFor2years"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          week_end as string,",
+						"          geography as string,",
+						"          county as string,",
+						"          percent_visits_combined as string,",
+						"          percent_visits_covid as string,",
+						"          percent_visits_influenza as string,",
+						"          percent_visits_rsv as string,",
+						"          percent_visits_smoothed_combined as string,",
+						"          percent_visits_smoothed_covid as string,",
+						"          percent_visits_smoothed_influenza as string,",
+						"          percent_visits_smoothed_rsv as string,",
+						"          ed_trends_covid as string,",
+						"          ed_trends_influenza as string,",
+						"          ed_trends_rsv as string,",
+						"          hsa as string,",
+						"          hsa_counties as string,",
+						"          hsa_nci_id as string,",
+						"          fips as string,",
+						"          trend_source as string,",
+						"          BuildNumber as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     partitionBy('hash', 1)) ~> RespiratoryHospitalizations",
+						"RespiratoryHospitalizations derive(week_end = toDate(week_end, 'yyyy-MM-dd')) ~> Datafor2years",
+						"Datafor2years filter(week_end >= toDate('2023-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor2years",
+						"FilterDataFor2years sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['Respiratory_Hospitalizations_2years'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> RespiratoryHospitalization2years"
+					]
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/preprocessRawRespiratoryDataBronze')]"
+				"[concat(variables('factoryId'), '/datasets/RawData')]",
+				"[concat(variables('factoryId'), '/datasets/respiratoryhospitalization')]"
 			]
 		},
 		{
@@ -828,6 +810,52 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/PreProcessAirPollutionSilver')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Historical_RespiratoryHospitalization_Bronze')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "RespiratoryHospitalization",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "preprocessRawRespiratoryDataBronze",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"RespiratoryHospitalizations": {},
+									"RespiratoryHospitalization2years": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/preprocessRawRespiratoryDataBronze')]"
 			]
 		}
 	]

@@ -8,19 +8,19 @@
 		"AirPollution_RespiratoryHospitalizations_credential": {
 			"value": ""
 		},
+		"AirpollutionSilver_connectionString": {
+			"value": ""
+		},
 		"HistoricalAirPollutionDatasink_connectionString": {
 			"value": ""
 		},
 		"RawData_connectionString": {
 			"value": ""
 		},
-		"respiratorebronze_connectionString": {
-			"value": ""
-		},
-		"AirpollutionSilver_connectionString": {
-			"value": ""
-		},
 		"RespiratorySilver_connectionString": {
+			"value": ""
+		},
+		"respiratorebronze_connectionString": {
 			"value": ""
 		},
 		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {

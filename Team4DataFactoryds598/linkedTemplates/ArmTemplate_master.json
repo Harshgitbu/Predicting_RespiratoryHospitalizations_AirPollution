@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'AirPollution_RespiratoryHospitalizations'"
 		},
+		"AirpollutionSilver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AirpollutionSilver'"
+		},
 		"HistoricalAirPollutionDatasink_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'HistoricalAirPollutionDatasink'"
@@ -19,17 +23,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'RawData'"
 		},
-		"respiratorebronze_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'respiratorebronze'"
-		},
-		"AirpollutionSilver_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AirpollutionSilver'"
-		},
 		"RespiratorySilver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'RespiratorySilver'"
+		},
+		"respiratorebronze_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'respiratorebronze'"
 		},
 		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 			"type": "string",
@@ -69,20 +69,20 @@
 					"AirPollution_RespiratoryHospitalizations_credential": {
 						"value": "[parameters('AirPollution_RespiratoryHospitalizations_credential')]"
 					},
+					"AirpollutionSilver_connectionString": {
+						"value": "[parameters('AirpollutionSilver_connectionString')]"
+					},
 					"HistoricalAirPollutionDatasink_connectionString": {
 						"value": "[parameters('HistoricalAirPollutionDatasink_connectionString')]"
 					},
 					"RawData_connectionString": {
 						"value": "[parameters('RawData_connectionString')]"
 					},
-					"respiratorebronze_connectionString": {
-						"value": "[parameters('respiratorebronze_connectionString')]"
-					},
-					"AirpollutionSilver_connectionString": {
-						"value": "[parameters('AirpollutionSilver_connectionString')]"
-					},
 					"RespiratorySilver_connectionString": {
 						"value": "[parameters('RespiratorySilver_connectionString')]"
+					},
+					"respiratorebronze_connectionString": {
+						"value": "[parameters('respiratorebronze_connectionString')]"
 					},
 					"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 						"value": "[parameters('AirPollution_RespiratoryHospitalizations_properties_typeProperties_username')]"
