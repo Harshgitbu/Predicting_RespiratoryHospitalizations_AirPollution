@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "Silver/RespiratoryHospitalizations",
+				"folderPath": "Silver/HistoricalAirPollution",
 				"container": "team4container"
 			},
 			"compressionCodec": "snappy"

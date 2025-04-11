@@ -91,7 +91,7 @@
 				"drop sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     partitionFileNames:['Respiratory_hospitalizations'],",
+				"     partitionFileNames:['HistoricalAirPollution'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('hash', 1)) ~> HistoricalAirPollutionSilver"
