@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'respiratorebronze'"
 		},
+		"AirpollutionSilver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AirpollutionSilver'"
+		},
 		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "Harshgitbu"
@@ -104,6 +108,19 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('respiratorebronze_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AirpollutionSilver')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AirpollutionSilver_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -316,6 +333,31 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AirPollutionSilverstorage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AirpollutionSilver",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "Silver/RespiratoryHospitalizations",
+						"container": "team4container"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AirpollutionSilver')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Historical_AirPollution_Bronze')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -466,6 +508,113 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PreProcessAirPollutionSilver')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "getting data ready for silver for airpollution",
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "HistoricalAirPollutionDataSink",
+								"type": "DatasetReference"
+							},
+							"name": "AirPollutionSilver"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AirPollutionSilverstorage",
+								"type": "DatasetReference"
+							},
+							"name": "HistoricalAirPollutionSilver"
+						}
+					],
+					"transformations": [
+						{
+							"name": "flatten"
+						},
+						{
+							"name": "derivedColumn1"
+						},
+						{
+							"name": "drop"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          coord as (lat as double, lon as double),",
+						"          list as (components as (co as double, nh3 as double, no as double, no2 as double, o3 as double, pm10 as double, pm2_5 as double, so2 as double), dt as integer, main as (aqi as short))[]",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine',",
+						"     wildcardPaths:['Bronze/HistoricalAirPollution/2.5/air_pollution/history*'],",
+						"     partitionBy('hash', 1)) ~> AirPollutionSilver",
+						"AirPollutionSilver foldDown(unroll(list, list),",
+						"     mapColumn(",
+						"          lat = coord.lat,",
+						"          lon = coord.lon,",
+						"          co = list.components.co,",
+						"          nh3 = list.components.nh3,",
+						"          no = list.components.no,",
+						"          no2 = list.components.no2,",
+						"          o3 = list.components.o3,",
+						"          pm10 = list.components.pm10,",
+						"          pm2_5 = list.components.pm2_5,",
+						"          so2 = list.components.so2,",
+						"          timestamp = list.dt,",
+						"          aqi = list.main.aqi",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> flatten",
+						"flatten derive(Location = 'Boston',",
+						"          id = concat('Boston', toString(timestamp)),",
+						"          co = toString(round(co, 2), '0.00'),",
+						"          nh3 = toString(round(nh3, 2), '0.00'),",
+						"          no = toString(round(no, 2), '0.00'),",
+						"          no2 = toString(round(no2, 2), '0.00'),",
+						"          o3 = toString(round(o3, 2), '0.00'),",
+						"          pm10 = toString(round(pm10, 2), '0.00'),",
+						"          pm2_5 = toString(round(pm2_5, 2), '0.00'),",
+						"          so2 = toString(round(so2, 2), '0.00'),",
+						"          date_time = toTimestamp(toLong(timestamp) * 1000L)) ~> derivedColumn1",
+						"derivedColumn1 select(mapColumn(",
+						"          co,",
+						"          nh3,",
+						"          no,",
+						"          no2,",
+						"          o3,",
+						"          pm10,",
+						"          pm2_5,",
+						"          so2,",
+						"          aqi,",
+						"          Location,",
+						"          id,",
+						"          date_time",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> drop",
+						"drop sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     partitionFileNames:['Respiratory_hospitalizations'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> HistoricalAirPollutionSilver"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/HistoricalAirPollutionDataSink')]",
+				"[concat(variables('factoryId'), '/datasets/AirPollutionSilverstorage')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Historical_RespiratoryHospitalization_Bronze')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -509,6 +658,53 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/preprocessRawRespiratoryDataBronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Historical_AirPollution_Silver')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Silver layer data\n",
+				"activities": [
+					{
+						"name": "AirPollutionSilver",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "PreProcessAirPollutionSilver",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"AirPollutionSilver": {},
+									"HistoricalAirPollutionSilver": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/PreProcessAirPollutionSilver')]"
 			]
 		}
 	]

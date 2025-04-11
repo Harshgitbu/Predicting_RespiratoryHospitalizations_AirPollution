@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'respiratorebronze'"
 		},
+		"AirpollutionSilver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AirpollutionSilver'"
+		},
 		"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "Harshgitbu"
@@ -69,6 +73,9 @@
 					},
 					"respiratorebronze_connectionString": {
 						"value": "[parameters('respiratorebronze_connectionString')]"
+					},
+					"AirpollutionSilver_connectionString": {
+						"value": "[parameters('AirpollutionSilver_connectionString')]"
 					},
 					"AirPollution_RespiratoryHospitalizations_properties_typeProperties_username": {
 						"value": "[parameters('AirPollution_RespiratoryHospitalizations_properties_typeProperties_username')]"
