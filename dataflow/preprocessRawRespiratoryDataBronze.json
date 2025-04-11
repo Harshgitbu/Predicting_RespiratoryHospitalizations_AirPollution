@@ -1,5 +1,5 @@
 {
-	"name": "preprocessRawRespiratoryData",
+	"name": "preprocessRawRespiratoryDataBronze",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
