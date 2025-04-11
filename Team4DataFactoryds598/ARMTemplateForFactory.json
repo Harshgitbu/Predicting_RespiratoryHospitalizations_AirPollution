@@ -81,7 +81,13 @@
 							{
 								"referenceName": "HistoricalAirPollution",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"lat": "42.3601",
+									"lon": "-71.0589",
+									"appid": "ce5de9911b73fac401ffac9abdc027cb",
+									"start": "1675232175",
+									"end": "1744152832"
+								}
 							}
 						],
 						"outputs": [
@@ -124,7 +130,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "preprocessRawRespiratoryData",
+								"referenceName": "preprocessRawRespiratoryDataBronze",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
@@ -147,7 +153,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/preprocessRawRespiratoryData')]"
+				"[concat(variables('factoryId'), '/dataflows/preprocessRawRespiratoryDataBronze')]"
 			]
 		},
 		{
@@ -174,7 +180,7 @@
 					},
 					"start": {
 						"type": "string",
-						"defaultValue": "1712616832"
+						"defaultValue": "1675232175"
 					},
 					"end": {
 						"type": "string",
@@ -430,7 +436,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/preprocessRawRespiratoryData')]",
+			"name": "[concat(parameters('factoryName'), '/preprocessRawRespiratoryDataBronze')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
