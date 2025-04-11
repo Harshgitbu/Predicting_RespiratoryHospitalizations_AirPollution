@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "preprocessRawRespiratoryData",
+						"referenceName": "preprocessRawRespiratoryDataBronze",
 						"type": "DataFlowReference"
 					},
 					"compute": {
