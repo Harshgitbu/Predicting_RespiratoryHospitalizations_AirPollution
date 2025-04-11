@@ -212,6 +212,52 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Historical_Respiratory_Silver')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Historical_Respiratory_Silver",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "PreProcessRespiratorySilver",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"RespiratoryHospitalizationSilver": {},
+									"RespiratorySink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/PreProcessRespiratorySilver')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AirPollutionSilverstorage')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -707,7 +753,7 @@
 							"name": "filter"
 						},
 						{
-							"name": "drop"
+							"name": "select1"
 						}
 					],
 					"scriptLines": [
@@ -739,35 +785,33 @@
 						"     documentForm: 'documentPerLine',",
 						"     wildcardPaths:['Bronze/RespiratoryHospitalizations/Respiratory_Hospitalizations_2years'],",
 						"     partitionBy('hash', 1)) ~> RespiratoryHospitalizationSilver",
-						"filter derive(total_visits_combined = toInteger(round(toDouble(percent_visits_combined) * 775000)),",
+						"filter derive(percent_visits_combined = toInteger(round(toDouble(percent_visits_combined) * 775000)),",
 						"          total_visits_covid = toInteger(round(toDouble(percent_visits_covid) * 775000)),",
 						"          total_visits_influenza = toInteger(round(toDouble(percent_visits_influenza) * 775000)),",
 						"          total_visits_rsv = toInteger(round(toDouble(percent_visits_rsv) * 775000)),",
-						"          Location = 'Boston') ~> derivedColumn",
+						"          Location = 'Boston',",
+						"          total_visits_smoothed_combined = toInteger(round(toDouble(percent_visits_smoothed_combined) * 775000)),",
+						"          total_visits_smoothed_covid = toInteger(round(toDouble(percent_visits_smoothed_covid) * 775000)),",
+						"          total_visits_smoothed_influenza = toInteger(round(toDouble(percent_visits_smoothed_influenza) * 775000)),",
+						"          total_visits_smoothed_rsv = toInteger(round(toDouble(percent_visits_smoothed_rsv) * 775000))) ~> derivedColumn",
 						"RespiratoryHospitalizationSilver filter(geography == \"Massachusetts\" && county == \"Suffolk\") ~> filter",
 						"derivedColumn select(mapColumn(",
+						"          Location,",
 						"          ed_trends_covid,",
 						"          ed_trends_influenza,",
 						"          ed_trends_rsv,",
-						"          fips,",
-						"          hsa,",
-						"          hsa_counties,",
-						"          hsa_nci_id,",
-						"          percent_visits_smoothed_combined,",
-						"          percent_visits_smoothed_covid,",
-						"          percent_visits_smoothed_influenza,",
-						"          percent_visits_smoothed_rsv,",
-						"          trend_source,",
 						"          week_end,",
-						"          total_visits_combined,",
 						"          total_visits_covid,",
 						"          total_visits_influenza,",
 						"          total_visits_rsv,",
-						"          Location",
+						"          total_visits_smoothed_combined,",
+						"          total_visits_smoothed_covid,",
+						"          total_visits_smoothed_influenza,",
+						"          total_visits_smoothed_rsv",
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> drop",
-						"drop sink(allowSchemaDrift: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
 						"     partitionFileNames:['RespiratoryHospitalizationsFiltered'],",
@@ -856,52 +900,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/RawData')]",
 				"[concat(variables('factoryId'), '/datasets/respiratoryhospitalization')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Historical_Respiratory_Silver')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Historical_Respiratory_Silver",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "PreProcessRespiratorySilver",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"RespiratoryHospitalizationSilver": {},
-									"RespiratorySink": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/PreProcessRespiratorySilver')]"
 			]
 		}
 	]
