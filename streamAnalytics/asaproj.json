@@ -1,0 +1,18 @@
+{
+    "name": "cdc-pollution-stream-to-powerbi",
+    "startFile": "Transformation.asaql",
+    "configurations": [
+        {
+            "filePath": "JobConfig.json",
+            "subType": "JobConfig"
+        },
+        {
+            "filePath": "Outputs/My-workspace.json",
+            "subType": "Output"
+        },
+        {
+            "filePath": "Outputs/Stream-CDC-AirPollution-PowerBI.json",
+            "subType": "Output"
+        }
+    ]
+}
