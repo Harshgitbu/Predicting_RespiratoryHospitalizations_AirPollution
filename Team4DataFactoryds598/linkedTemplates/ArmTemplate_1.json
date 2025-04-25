@@ -128,8 +128,7 @@
 								"datasetParameters": {
 									"RespiratoryHospitalizations": {},
 									"RespiratoryHospitalization2years": {}
-								},
-								"linkedServiceParameters": {}
+								}
 							},
 							"staging": {},
 							"compute": {
