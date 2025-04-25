@@ -60,7 +60,8 @@
 				"Datafor2years filter(week_end >= toDate('2023-02-01') && week_end <= toDate('2025-03-31')) ~> FilterDataFor2years",
 				"FilterDataFor2years sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['Resp.json'],",
+				"     partitionFileNames:['Respiratory_Hospitalizations_2years'],",
+				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('hash', 1)) ~> RespiratoryHospitalization2years"
