@@ -21,7 +21,7 @@
 					},
 					{
 						"name": "Destination",
-						"value": "team4container/Bronze/AirPollution/"
+						"value": "team4container/Bronze/HistoricalAirPollution/"
 					}
 				],
 				"typeProperties": {
