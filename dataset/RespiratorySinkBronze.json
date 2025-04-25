@@ -14,6 +14,70 @@
 				"container": "team4container"
 			}
 		},
-		"schema": {}
+		"schema": {
+			"type": "object",
+			"properties": {
+				"week_end": {
+					"type": "string"
+				},
+				"geography": {
+					"type": "string"
+				},
+				"county": {
+					"type": "string"
+				},
+				"percent_visits_combined": {
+					"type": "string"
+				},
+				"percent_visits_covid": {
+					"type": "string"
+				},
+				"percent_visits_influenza": {
+					"type": "string"
+				},
+				"percent_visits_rsv": {
+					"type": "string"
+				},
+				"percent_visits_smoothed_combined": {
+					"type": "string"
+				},
+				"percent_visits_smoothed_covid": {
+					"type": "string"
+				},
+				"percent_visits_smoothed_influenza": {
+					"type": "string"
+				},
+				"percent_visits_smoothed_rsv": {
+					"type": "string"
+				},
+				"ed_trends_covid": {
+					"type": "string"
+				},
+				"ed_trends_influenza": {
+					"type": "string"
+				},
+				"ed_trends_rsv": {
+					"type": "string"
+				},
+				"hsa": {
+					"type": "string"
+				},
+				"hsa_counties": {
+					"type": "string"
+				},
+				"hsa_nci_id": {
+					"type": "string"
+				},
+				"fips": {
+					"type": "string"
+				},
+				"trend_source": {
+					"type": "string"
+				},
+				"BuildNumber": {
+					"type": "string"
+				}
+			}
+		}
 	}
 }
