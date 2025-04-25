@@ -45,7 +45,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine',",
-				"     wildcardPaths:['Bronze/HistoricalAirPollution/2.5/air_pollution/history*'],",
+				"     wildcardPaths:['Bronze/HistoricalAirPollution/data/2.5/air_pollution/history*'],",
 				"     partitionBy('hash', 1)) ~> AirPollutionSilver",
 				"AirPollutionSilver foldDown(unroll(list, list),",
 				"     mapColumn(",
