@@ -14,7 +14,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "data/2.5/air_pollution/history?lat=@{'42.3601'}&lon=@{'-71.0589'}&start=@{'1675232175'}&end=@{'1744152832'}&appid=@{'ce5de9911b73fac401ffac9abdc027cb'}"
+					},
+					{
+						"name": "Destination",
+						"value": "team4container/Bronze/HistoricalAirPollution/"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
