@@ -13,6 +13,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "team4container/Bronze/RespiratoryHospitalizations/"
+					},
+					{
+						"name": "Destination",
+						"value": "team4container/Bronze/RespiratoryHospitalizations/"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
