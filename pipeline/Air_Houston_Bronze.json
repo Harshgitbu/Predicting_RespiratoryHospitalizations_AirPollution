@@ -1,5 +1,5 @@
 {
-	"name": "Historical_AirPollution_Houston_Bronze",
+	"name": "Air_Houston_Bronze",
 	"properties": {
 		"description": "Pulling Historical Air Pollution data for one year ",
 		"activities": [

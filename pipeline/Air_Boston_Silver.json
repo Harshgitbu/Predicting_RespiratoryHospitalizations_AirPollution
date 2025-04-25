@@ -1,5 +1,5 @@
 {
-	"name": "Historical_AirPollution_Silver",
+	"name": "Air_Boston_Silver",
 	"properties": {
 		"description": "Silver layer data\n",
 		"activities": [
@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "PreProcessAirPollutionSilver",
+						"referenceName": "PreProcessAirPollutionSilverBoston",
 						"type": "DataFlowReference"
 					},
 					"compute": {

@@ -1,5 +1,5 @@
 {
-	"name": "PreProcessAirPollutionSilverBoston",
+	"name": "PreProcessAirPollutionSilverHouston",
 	"properties": {
 		"description": "getting data ready for silver for airpollution",
 		"type": "MappingDataFlow",
@@ -64,8 +64,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten",
-				"filter1 derive(Location = 'Boston',",
-				"          id = concat('Boston', toString(timestamp)),",
+				"filter1 derive(Location = 'Houston',",
+				"          id = concat('Houston', toString(timestamp)),",
 				"          co = toString(round(co, 2), '0.00'),",
 				"          nh3 = toString(round(nh3, 2), '0.00'),",
 				"          no = toString(round(no, 2), '0.00'),",
@@ -91,7 +91,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> drop",
-				"flatten filter(lat == 42.3601) ~> filter1",
+				"flatten filter(lat == 29.7601) ~> filter1",
 				"drop sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",

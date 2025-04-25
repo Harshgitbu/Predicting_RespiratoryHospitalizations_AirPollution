@@ -1,9 +1,10 @@
 {
-	"name": "Respiratory_Houston_Silver",
+	"name": "Air_Houston_Silver",
 	"properties": {
+		"description": "Silver layer data\n",
 		"activities": [
 			{
-				"name": "Historical_Respiratory_Silver",
+				"name": "AirPollutionSilver",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "PreProcessRespiratorySilverHouston",
+						"referenceName": "PreProcessAirPollutionSilverHouston",
 						"type": "DataFlowReference"
 					},
 					"compute": {
