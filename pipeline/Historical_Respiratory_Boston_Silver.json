@@ -1,5 +1,5 @@
 {
-	"name": "Historical_Respiratory_Silver",
+	"name": "Historical_Respiratory_Boston_Silver",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "PreProcessRespiratorySilver",
+						"referenceName": "PreProcessRespiratorySilverBoston",
 						"type": "DataFlowReference"
 					},
 					"compute": {

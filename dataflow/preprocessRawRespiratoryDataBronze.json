@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "RawData",
+						"referenceName": "RawHospData",
 						"type": "DatasetReference"
 					},
 					"name": "RespiratoryHospitalizations"
@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "respiratoryhospitalization",
+						"referenceName": "RespiratorySinkBronze",
 						"type": "DatasetReference"
 					},
 					"name": "RespiratoryHospitalization2years"

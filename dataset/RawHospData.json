@@ -1,5 +1,5 @@
 {
-	"name": "RawData",
+	"name": "RawHospData",
 	"properties": {
 		"description": "Raw Respiratory data",
 		"linkedServiceName": {

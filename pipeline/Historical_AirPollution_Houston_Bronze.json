@@ -1,5 +1,5 @@
 {
-	"name": "Historical_AirPollution_Boston_Bronze",
+	"name": "Historical_AirPollution_Houston_Bronze",
 	"properties": {
 		"description": "Pulling Historical Air Pollution data for one year ",
 		"activities": [
@@ -42,8 +42,8 @@
 						"referenceName": "HistoricalAirPollution",
 						"type": "DatasetReference",
 						"parameters": {
-							"lat": "42.3601",
-							"lon": "-71.0589",
+							"lat": "29.7601",
+							"lon": "-95.3701",
 							"appid": "ce5de9911b73fac401ffac9abdc027cb",
 							"start": "1675232175",
 							"end": "1744152832"

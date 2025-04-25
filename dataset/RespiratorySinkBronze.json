@@ -1,5 +1,5 @@
 {
-	"name": "respiratoryhospitalization",
+	"name": "RespiratorySinkBronze",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "respiratorebronze",
