@@ -13,7 +13,7 @@
 				"folderPath": "Silver/HistoricalAirPollution",
 				"container": "team4container"
 			},
-			"compressionCodec": "snappy"
+			"compressionCodec": "none"
 		},
 		"schema": []
 	}
