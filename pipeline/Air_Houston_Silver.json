@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "PreProcessAirPollutionSilverHouston",
+						"referenceName": "PreProcessAirSilverHouston",
 						"type": "DataFlowReference"
 					},
 					"compute": {

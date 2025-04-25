@@ -61,7 +61,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "HistoricalAirPollutionDataSink",
+						"referenceName": "AirSinkBronze",
 						"type": "DatasetReference"
 					}
 				]

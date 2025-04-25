@@ -1,5 +1,5 @@
 {
-	"name": "HistoricalAirPollutionDataSink",
+	"name": "AirSinkBronze",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "HistoricalAirPollutionDatasink",

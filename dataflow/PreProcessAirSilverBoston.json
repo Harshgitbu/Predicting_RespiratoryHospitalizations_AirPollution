@@ -1,5 +1,5 @@
 {
-	"name": "PreProcessAirPollutionSilverBoston",
+	"name": "PreProcessAirSilverBoston",
 	"properties": {
 		"description": "getting data ready for silver for airpollution",
 		"type": "MappingDataFlow",
@@ -7,7 +7,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "HistoricalAirPollutionDataSink",
+						"referenceName": "AirSinkBronze",
 						"type": "DatasetReference"
 					},
 					"name": "AirPollutionSilver"
@@ -16,7 +16,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AirPollutionSilverstorage",
+						"referenceName": "AirSinkSilver",
 						"type": "DatasetReference"
 					},
 					"name": "HistoricalAirPollutionSilver"
