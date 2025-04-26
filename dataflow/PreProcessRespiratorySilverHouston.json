@@ -71,7 +71,7 @@
 				"          total_visits_smoothed_influenza = toInteger(round(toDouble(percent_visits_smoothed_influenza) * 50009302)),",
 				"          total_visits_smoothed_rsv = toInteger(round(toDouble(percent_visits_smoothed_rsv) * 50009302)),",
 				"          Location = 'Houston') ~> derivedColumn",
-				"RespiratoryHospitalizationSilver filter(geography == \"Texas\" && county == \"Harris\") ~> filter",
+				"RespiratoryHospitalizationSilver filter(geography == \"Alabama\" && county == \"All\") ~> filter",
 				"derivedColumn select(mapColumn(",
 				"          week_end,",
 				"          ed_trends_covid,",
