@@ -66,7 +66,7 @@
 				"     skipDuplicateMapOutputs: false) ~> flatten",
 				"filter1 derive(Location = 'Houston',",
 				"          id = concat('Houston', toString(timestamp)),",
-				"          co = toDouble(round(co, 2), '0.00'),",
+				"          co = toString(round(co, 2), '0.00'),",
 				"          nh3 = toString(round(nh3, 2), '0.00'),",
 				"          no = toString(round(no, 2), '0.00'),",
 				"          no2 = toString(round(no2, 2), '0.00'),",
