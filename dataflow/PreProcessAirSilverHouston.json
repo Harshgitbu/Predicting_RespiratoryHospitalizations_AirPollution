@@ -75,7 +75,7 @@
 				"          pm2_5 = toDouble(round(pm2_5, 2), '0.00'),",
 				"          so2 = toDouble(round(so2, 2), '0.00'),",
 				"          date_time = toTimestamp(toLong(timestamp) * 1000L),",
-				"          aqi = toDouble(round(aqi, 2), '0.00')) ~> derivedColumn1",
+				"          aqi = toInt(round(aqi, 2))) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
 				"          co,",
 				"          nh3,",
