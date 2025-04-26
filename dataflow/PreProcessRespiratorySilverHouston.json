@@ -74,6 +74,8 @@
 				"RespiratoryHospitalizationSilver filter(geography == \"Alabama\" && county == \"All\") ~> filter",
 				"derivedColumn select(mapColumn(",
 				"          week_end,",
+				"          geography,",
+				"          county,",
 				"          ed_trends_covid,",
 				"          ed_trends_influenza,",
 				"          ed_trends_rsv,",
