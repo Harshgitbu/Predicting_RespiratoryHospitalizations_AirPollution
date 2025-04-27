@@ -1,0 +1,74 @@
+{
+	"name": "Air_Boston_Bronze",
+	"properties": {
+		"description": "Pulling Historical Air Pollution data for one year ",
+		"activities": [
+			{
+				"name": "HistoricalAirPollution",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "data/2.5/air_pollution/history?lat=@{'42.3601'}&lon=@{'-71.0589'}&start=@{'1675232175'}&end=@{'1744152832'}&appid=@{'ce5de9911b73fac401ffac9abdc027cb'}"
+					},
+					{
+						"name": "Destination",
+						"value": "team4container/Bronze/HistoricalAirPollution/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "HistoricalAirPollution",
+						"type": "DatasetReference",
+						"parameters": {
+							"lat": "42.3601",
+							"lon": "-71.0589",
+							"appid": "ce5de9911b73fac401ffac9abdc027cb",
+							"start": "1675232175",
+							"end": "1744152832"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AirSinkBronze",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-04-08T18:59:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

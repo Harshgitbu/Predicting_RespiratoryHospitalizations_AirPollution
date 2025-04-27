@@ -1,5 +1,5 @@
 {
-	"name": "PreProcessAirPollutionSilver",
+	"name": "PreProcessAirSilverHouston",
 	"properties": {
 		"description": "getting data ready for silver for airpollution",
 		"type": "MappingDataFlow",
@@ -7,7 +7,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "HistoricalAirPollutionDataSink",
+						"referenceName": "AirSinkBronze",
 						"type": "DatasetReference"
 					},
 					"name": "AirPollutionSilver"
@@ -16,7 +16,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "AirPollutionSilverstorage",
+						"referenceName": "AirSinkSilver",
 						"type": "DatasetReference"
 					},
 					"name": "HistoricalAirPollutionSilver"
@@ -31,6 +31,9 @@
 				},
 				{
 					"name": "drop"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -42,7 +45,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine',",
-				"     wildcardPaths:['Bronze/HistoricalAirPollution/2.5/air_pollution/history*'],",
+				"     wildcardPaths:['Bronze/HistoricalAirPollution/data/2.5/air_pollution/history*'],",
 				"     partitionBy('hash', 1)) ~> AirPollutionSilver",
 				"AirPollutionSilver foldDown(unroll(list, list),",
 				"     mapColumn(",
@@ -61,8 +64,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten",
-				"flatten derive(Location = 'Boston',",
-				"          id = concat('Boston', toString(timestamp)),",
+				"filter1 derive(Location = 'Houston',",
+				"          id = concat('Houston', toString(timestamp)),",
 				"          co = toString(round(co, 2), '0.00'),",
 				"          nh3 = toString(round(nh3, 2), '0.00'),",
 				"          no = toString(round(no, 2), '0.00'),",
@@ -71,7 +74,8 @@
 				"          pm10 = toString(round(pm10, 2), '0.00'),",
 				"          pm2_5 = toString(round(pm2_5, 2), '0.00'),",
 				"          so2 = toString(round(so2, 2), '0.00'),",
-				"          date_time = toTimestamp(toLong(timestamp) * 1000L)) ~> derivedColumn1",
+				"          date_time = toTimestamp(toLong(timestamp) * 1000L),",
+				"          aqi = toInteger(aqi)) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
 				"          co,",
 				"          nh3,",
@@ -88,10 +92,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> drop",
+				"flatten filter(lat == 29.7601) ~> filter1",
 				"drop sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     partitionFileNames:['HistoricalAirPollution'],",
+				"     partitionFileNames:['HistoricalAirPollutionHouston.parquet'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     partitionBy('hash', 1)) ~> HistoricalAirPollutionSilver"

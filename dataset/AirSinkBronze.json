@@ -1,5 +1,5 @@
 {
-	"name": "HistoricalAirPollutionDataSink",
+	"name": "AirSinkBronze",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "HistoricalAirPollutionDatasink",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "Bronze",
+				"folderPath": "Bronze/HistoricalAirPollution",
 				"container": "team4container"
 			}
 		},

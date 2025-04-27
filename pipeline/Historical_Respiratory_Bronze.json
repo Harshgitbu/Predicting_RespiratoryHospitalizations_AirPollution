@@ -1,10 +1,9 @@
 {
-	"name": "Historical_AirPollution_Silver",
+	"name": "Historical_Respiratory_Bronze",
 	"properties": {
-		"description": "Silver layer data\n",
 		"activities": [
 			{
-				"name": "AirPollutionSilver",
+				"name": "RespiratoryHospitalization",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -17,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "PreProcessAirPollutionSilver",
+						"referenceName": "PreprocessRawRespiratoryDataBronze",
 						"type": "DataFlowReference"
 					},
 					"compute": {

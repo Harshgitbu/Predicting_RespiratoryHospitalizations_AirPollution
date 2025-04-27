@@ -13,7 +13,7 @@
 				"folderPath": "Silver/RespiratoryHospitalizations",
 				"container": "team4container"
 			},
-			"compressionCodec": "snappy"
+			"compressionCodec": "none"
 		},
 		"schema": []
 	}

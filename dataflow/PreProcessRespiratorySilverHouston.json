@@ -1,0 +1,101 @@
+{
+	"name": "PreProcessRespiratorySilverHouston",
+	"properties": {
+		"description": "Respiratory Hospitalization cleanup to silver layer",
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "RespiratorySinkBronze",
+						"type": "DatasetReference"
+					},
+					"name": "RespiratoryHospitalizationSilver"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "RespiratorySinkSilver",
+						"type": "DatasetReference"
+					},
+					"name": "RespiratorySink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn"
+				},
+				{
+					"name": "filter"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          week_end as string,",
+				"          geography as string,",
+				"          county as string,",
+				"          percent_visits_combined as string,",
+				"          percent_visits_covid as string,",
+				"          percent_visits_influenza as string,",
+				"          percent_visits_rsv as string,",
+				"          percent_visits_smoothed_combined as string,",
+				"          percent_visits_smoothed_covid as string,",
+				"          percent_visits_smoothed_influenza as string,",
+				"          percent_visits_smoothed_rsv as string,",
+				"          ed_trends_covid as string,",
+				"          ed_trends_influenza as string,",
+				"          ed_trends_rsv as string,",
+				"          hsa as string,",
+				"          hsa_counties as string,",
+				"          hsa_nci_id as string,",
+				"          fips as string,",
+				"          trend_source as string,",
+				"          BuildNumber as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine',",
+				"     wildcardPaths:['Bronze/RespiratoryHospitalizations/Respiratory_Hospitalizations_2years.json'],",
+				"     partitionBy('hash', 1)) ~> RespiratoryHospitalizationSilver",
+				"filter derive(percent_visits_combined = toInteger(round(toDouble(percent_visits_combined) * 5009302)),",
+				"          total_visits_covid = toInteger(round(toDouble(percent_visits_covid) * 5009302)),",
+				"          total_visits_influenza = toInteger(round(toDouble(percent_visits_influenza) * 5009302)),",
+				"          total_visits_rsv = toInteger(round(toDouble(percent_visits_rsv) * 5009302)),",
+				"          total_visits_smoothed_combined = toInteger(round(toDouble(percent_visits_smoothed_combined) * 5009302)),",
+				"          total_visits_smoothed_covid = toInteger(round(toDouble(percent_visits_smoothed_covid) * 5009302)),",
+				"          total_visits_smoothed_influenza = toInteger(round(toDouble(percent_visits_smoothed_influenza) * 5009302)),",
+				"          total_visits_smoothed_rsv = toInteger(round(toDouble(percent_visits_smoothed_rsv) * 5009302)),",
+				"          Location = 'Houston') ~> derivedColumn",
+				"RespiratoryHospitalizationSilver filter(geography == \"Texas\" && county == \"Harris\") ~> filter",
+				"derivedColumn select(mapColumn(",
+				"          week_end,",
+				"          ed_trends_covid,",
+				"          ed_trends_influenza,",
+				"          ed_trends_rsv,",
+				"          total_visits_covid,",
+				"          total_visits_influenza,",
+				"          total_visits_rsv,",
+				"          total_visits_smoothed_combined,",
+				"          total_visits_smoothed_covid,",
+				"          total_visits_smoothed_influenza,",
+				"          total_visits_smoothed_rsv,",
+				"          Location",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     partitionFileNames:['RespiratoryHospitalizationsFilteredHouston'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> RespiratorySink"
+			]
+		}
+	}
+}

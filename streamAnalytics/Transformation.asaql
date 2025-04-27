@@ -1,0 +1,66 @@
+/*
+Here are links to help you get started with Stream Analytics Query Language:
+Common query patterns - https://go.microsoft.com/fwLink/?LinkID=619153
+Query language - https://docs.microsoft.com/stream-analytics-query/query-language-elements-azure-stream-analytics
+*/
+
+-- CDC Hospitalization
+
+-- CDC Hospitalization
+
+SELECT *
+INTO "My-workspace"
+FROM (
+    -- CDC Hospitalizations (daily)
+    SELECT
+        ingestion_time,
+        jurisdiction AS location,
+        weekendingdate,
+        NULL AS latitude,
+        NULL AS longitude,
+        NULL AS air_quality_index,
+        NULL AS carbon_monoxide,
+        NULL AS pm2_5_level,
+        NULL AS nitric_oxide,
+        NULL AS pm10_level,
+        NULL AS nitrogen_dioxide,
+        NULL AS ozone,
+        NULL AS ammonia,
+        NULL AS sulfur_dioxide,
+        CAST(totalconfc19hosppats AS bigint) AS totalconfc19hosppats,
+        CAST(totalconffluhosppats AS bigint) AS totalconffluhosppats,
+        CAST(totalconfrsvhosppats AS bigint) AS totalconfrsvhosppats,
+        CAST(totalconfc19newadm AS bigint) AS totalconfc19newadm,
+        CAST(totalconfflunewadm AS bigint) AS totalconfflunewadm,
+        CAST(totalconfrsvnewadm AS bigint) AS totalconfrsvnewadm,
+        'CDC' AS source
+    FROM "cdc-stream"
+
+    UNION ALL
+
+    -- Air Pollution (every 5 min)
+    SELECT
+        System.Timestamp() AS ingestion_time,
+        input.city AS location,
+        NULL AS weekendingdate,
+        input.latitude,
+        input.longitude,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'main.aqi') AS bigint) AS air_quality_index,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.co') AS float) AS carbon_monoxide,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.pm2_5') AS float) AS pm2_5_level,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.no') AS float) AS nitric_oxide,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.pm10') AS float) AS pm10_level,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.no2') AS float) AS nitrogen_dioxide,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.o3') AS float) AS ozone,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.nh3') AS float) AS ammonia,
+        TRY_CAST(GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'components.so2') AS float) AS sulfur_dioxide,
+        NULL AS totalconfc19hosppats,
+        NULL AS totalconffluhosppats,
+        NULL AS totalconfrsvhosppats,
+        NULL AS totalconfc19newadm,
+        NULL AS totalconfflunewadm,
+        NULL AS totalconfrsvnewadm,
+        'Pollution' AS source
+    FROM "air-pollution-stream" AS input
+    TIMESTAMP BY DateAdd(second, GetRecordPropertyValue(GetArrayElement(input.pollution.list, 0), 'dt'), '1970-01-01T00:00:00Z')
+) AS combined_stream

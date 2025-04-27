@@ -1,19 +1,20 @@
 {
-	"name": "respiratoryhospitalization",
+	"name": "AirSinkSilver",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "respiratorebronze",
+			"referenceName": "AirpollutionSilver",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "Json",
+		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "Bronze/RespiratoryHospitalizations",
+				"folderPath": "Silver/HistoricalAirPollution",
 				"container": "team4container"
-			}
+			},
+			"compressionCodec": "none"
 		},
-		"schema": {}
+		"schema": []
 	}
 }
