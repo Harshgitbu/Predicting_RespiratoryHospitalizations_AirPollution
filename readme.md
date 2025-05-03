@@ -2,7 +2,6 @@
 
 A predictive analytics pipeline that estimates future **influenza-related hospitalizations** using historical and real-time **air pollution** and **respiratory hospitalization** data, leveraging modern machine learning and time series forecasting techniques.
 
----
 
 ## 🔎 Overview
 
@@ -15,7 +14,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 - **Tech Stack:**  
   Azure Data Factory, Azure Synapse Analytics, Azure ML, Pandas, PySpark, XGBoost, SARIMAX, Power BI.
 
----
 
 ## 📂 Datasets
 
@@ -34,7 +32,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 | Weekly Respiratory Hospitalizations | CDC |
 | Real-Time Air Pollution | OpenWeather, OpenAQ, EPA |
 
----
 
 ## 🔧 Methodology
 
@@ -69,7 +66,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 - Resource optimization with **Azure Cost Management**.
 - Auto-scaling compute resources.
 
----
 
 ## 📊 Model Performance Summary
 
@@ -80,7 +76,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 **Note:** Houston MAPE is higher due to extreme variability and large swings in visit counts.
 
----
 
 ## 🔮 6-Week Forecasts (Visits → State Hospitalizations)
 
@@ -93,7 +88,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 **Uncertainty bounds:** ±30% around predicted state hospitalizations.
 
----
 
 ## 📈 Actual vs Predicted Comparison
 
@@ -118,7 +112,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 **Boston MAPE:** 37.1%  
 **Houston MAPE:** 220.4%
 
----
 
 ## 📌 Key Visualizations
 
@@ -127,7 +120,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 - **Model Performance Metrics**.
 - **Pollution Trends vs Hospitalizations Correlation (to be added in Power BI)**.
 
----
 
 ## 📁 Final Data Files
 
@@ -137,7 +129,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 | Boston_Houston_6Week_Forecasts.parquet | Forecast data |
 | Boston_Houston_Model_Performance_AllWeeks.parquet | Model predictions vs actuals (full history) |
 
----
 
 ## 🚀 Future Enhancements
 
@@ -146,7 +137,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 - Tune hospitalization rate conversions based on newer research.
 - Complete Power BI interactive dashboards.
 
----
 
 ## 👏 Contributors
 
