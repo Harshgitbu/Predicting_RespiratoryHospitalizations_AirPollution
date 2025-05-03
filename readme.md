@@ -69,11 +69,11 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 ![PowerBI](visualizations/Sentiment_performance.png)
 
 - Real-time alerts planned via **Azure Logic Apps**.
-![Cost](visualizations/Cost)
+![Cost](visualizations/Cost.png)
 
 - EDA and performance evaluation in **Jupyter Notebook**.
-![Predicted Visits](visualizations/Visits)
-![Predicted Hospitalizations](visualizations/Hospitalizations)
+![Predicted Visits](visualizations/Visits.png)
+![Predicted Hospitalizations](visualizations/Hospitalizations.png)
 
 
 ### 6️⃣ **Cost & Scalability**
