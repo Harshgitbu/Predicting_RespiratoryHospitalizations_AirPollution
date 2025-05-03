@@ -19,30 +19,20 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 ## 📂 Datasets
 
-### ✅ Historical Data
+### Historical Data
 
 | Dataset | Source |
 |---------|--------|
 | US Hospitalization Data | Kaggle Healthcare Dataset |
 | Air Pollution Data | OpenWeather Historical (API) |
 | US Respiratory Hospitalization Data | CDC / Data.gov |
-| Weekly Counts of Deaths | Data.gov |
-| Chicago Respiratory Records | Chicago Open Data |
 
-### ✅ Real-Time Data
+### Real-Time Data
 
 | Dataset | Source |
 |---------|--------|
 | Weekly Respiratory Hospitalizations | CDC |
 | Real-Time Air Pollution | OpenWeather, OpenAQ, EPA |
-
-### ✅ Supplementary
-
-| Dataset | Source |
-|---------|--------|
-| Social Media Sentiment | (optional analysis) |
-| Provisional Deaths | Data.gov |
-| SARS-CoV-2 Wastewater Data | NWSS Public Metrics |
 
 ---
 
