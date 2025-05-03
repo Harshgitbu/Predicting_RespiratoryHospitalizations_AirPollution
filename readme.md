@@ -131,14 +131,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 
 
-## 📌 Key Visualizations
-
-- **Actual vs Predicted Hospitalizations Over Time** (Boston & Houston).
-- **6-Week Forecasts** with uncertainty bounds.
-- **Model Performance Metrics**.
-
-
-
 ## 📁 Final Data Files
 
 | File | Description |
