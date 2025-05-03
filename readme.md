@@ -18,7 +18,7 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 
 ## Architecture
-![SentimentPerformance](visualization/Sentiment_performance.png)
+![Architecture](architecture/Sentiment_performance.png)
 
 
 ## 📂 Datasets
@@ -66,13 +66,14 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 ### 5️⃣ **Visualization & Alerts**
 - Visualization: **Power BI**.
-![SentimentPerformance](visualization/Sentiment_performance.png)
+![PowerBI](visualization/Sentiment_performance.png)
 
 - Real-time alerts planned via **Azure Logic Apps**.
-![SentimentPerformance](visualization/Sentiment_performance.png)
+![Cost](visualization/Cost)
 
 - EDA and performance evaluation in **Jupyter Notebook**.
-![SentimentPerformance](visualization/Sentiment_performance.png)
+![Predicted Visits](visualization/Visits)
+![Predicted Hospitalizations](visualization/Hospitalizations)
 
 
 ### 6️⃣ **Cost & Scalability**
