@@ -125,7 +125,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 - **Actual vs Predicted Hospitalizations Over Time** (Boston & Houston).
 - **6-Week Forecasts** with uncertainty bounds.
 - **Model Performance Metrics**.
-- **Pollution Trends vs Hospitalizations Correlation (to be added in Power BI)**.
 
 
 
@@ -141,10 +140,8 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 ## 🚀 Future Enhancements
 
-- Incorporate more real-time predictors (like RSV/COVID indicators).
 - Extend models to cover age groups/demographics.
 - Tune hospitalization rate conversions based on newer research.
-- Complete Power BI interactive dashboards.
 
 
 
