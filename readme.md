@@ -93,14 +93,14 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 
 
 
-## 🔮 6-Week Forecasts (Visits → State Hospitalizations)
+## 🔮 Future Forecasts (Visits → State Hospitalizations)
 
 | City | Date | Predicted Visits | Predicted State Hospitalizations |
 |------|------|------------------|---------------------------------|
-| Boston | 2025-04-05 | 1,045,808 | 125 |
-| ... | ... | ... | ... |
-| Houston | 2025-04-05 | 5,627,042 | 844 |
-| ... | ... | ... | ... |
+| Boston | 2025-05-03 | 1,043,682 | 125 |
+| Boston | 2025-05-10 | 1,043,276 | 128 |
+| Houston | 2025-05-03 | 6,631,054 | 995 |
+| Houston | 2025-05-10 | 7,549,178 | 1132 |
 
 **Uncertainty bounds:** ±30% around predicted state hospitalizations.
 
