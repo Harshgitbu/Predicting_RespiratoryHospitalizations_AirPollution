@@ -64,24 +64,17 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 - 6-week forward forecasts for Boston & Houston.
 - Forecast influenza-related ED visits and transform into expected state-level hospitalizations using scaling and hospitalization rate.
 
-### 5️⃣ **Visualization & Alerts**
+### 5️⃣ **Visualization & Cost Alerts**
 - Visualization: **Power BI**.
 ![PowerBI](powerbi/Homepage.png)
 ![PowerBI](powerbi/Hospitalization_respiratory.png)
-
-
-- Real-time alerts planned via **Azure Logic Apps**.
-![Cost](visualizations/Cost.png)
 
 - EDA and performance evaluation in **Jupyter Notebook**.
 ![Predicted Visits](visualizations/Visits.png)
 ![Predicted Hospitalizations](visualizations/Hospitalizations.png)
 
-
-### 6️⃣ **Cost & Scalability**
-- Resource optimization with **Azure Cost Management**.
-- Auto-scaling compute resources.
-
+- Resource optimization and Real-time alerts with **Azure Cost Management**.
+![Cost](visualizations/Cost.png)
 
 
 ## 📊 Model Performance Summary
