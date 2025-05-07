@@ -67,7 +67,6 @@ A predictive analytics pipeline that estimates future **influenza-related hospit
 ### 5️⃣ **Visualization & Alerts**
 - Visualization: **Power BI**.
 ![PowerBI](powerbi/Homepage.png)
-
 ![PowerBI](powerbi/Hospitalization_respiratory.png)
 
 
